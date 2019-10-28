@@ -15,21 +15,24 @@
             $usuario -> setLoginUsuario(strtoupper($_POST['cuentaUsuario']));
             $usuario -> setClaveUsuario($_POST['claveUsuario']);
 
-            $logged = $usuario -> LogIn($usuario);
+            $logged = $usuario -> LogIn();
 
-            if (isset($logged) && empty($logged)) {
-                header('Location: ../views/usuario/login.php');
-            }
+            // if (isset($logged) && empty($logged)) {
+            //     header('Location: ../views/usuario/login.php');
+            // }
 
             foreach ($logged as $key) 
             {
-                $idUsuario = $key -> getIdUsuario();
-                $idTercero = $key -> getIdTercero();
-                $idRol = $key -> getIdRol();
+                $idUsuario = $key->getIdUsuario();
+                $idTercero = $key->getIdTercero();
+                $idRol = $key->getIdRol();
             }
 
-            $terceroCompleted = $tercero -> Find($idTercero);
-            $rolCompleted = $rol -> FindRol($idRol);
+            $tercero->setIdTercero($idTercero);
+            $rol->setIdRol($idRol);
+
+            $terceroCompleted = $tercero->Find();
+            $rolCompleted = $rol->FindRol();
 
             foreach ($rolCompleted as $key) 
             {

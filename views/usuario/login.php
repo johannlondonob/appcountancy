@@ -1,17 +1,10 @@
 <?php
-session_start();
-session_destroy();
+    session_start();
+    session_destroy();
+    $titlePage = 'LogIn';
+    include_once '../common/head.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <?php include_once('../../inc/head.php'); ?>
-    <title>Log in AppCountancy</title>
-</head>
-
-<body>
     <div class="fixed-top shadow">
         <nav class="navbar navbar-expand-lg navbar-light bg-light w-100">
             <a class="navbar-brand font-weight-bold" href="../../index.php">AppCountancy</a>
@@ -63,7 +56,4 @@ session_destroy();
         </form>
     </div>
 
-    <?php include_once('../../inc/scripts.php'); ?>
-</body>
-
-</html>
+    <?php include_once('../common/bootstrapJS.php'); ?>

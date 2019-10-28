@@ -2,12 +2,33 @@
   require_once '../config/Db.php';
   require_once '../models/ReporteDomicilio.php';
   require_once '../models/DomicilioModel.php';
-
+  
   $rDomicilio = new ReporteDomicilio();
   $domicilio = new DomicilioModel();
+  
+  if (isset($_GET['fn'])) {
+    $funcion = $_GET['fn'];
+  
+    switch ($funcion) {
+      case 'selectAll':
+  
+        $domicilio = $rDomicilio->GenerateReport();
+        include_once '../views/common/head.php';
+        include_once '../views/common/navbar.php';
+        include_once '../views/domicilio/domicilios.php';
+        include_once '../views/common/datatables.php';
+        include_once '../views/common/bootstrapJS.php';
+
+        break;
+  
+      default:
+        // code...
+        break;
+    }
+  }
 
   if (isset($_POST['logDomicilio'])) {
-
+    
     $fechaActualDomicilio = $_POST['fechaDomicilio'];
     $fechaAsignadaDomicilio = $_POST['fechaEntregaDineroDomicilio'];
 
@@ -48,20 +69,5 @@
 
   }
 
-  if (isset($_GET['fn'])) {
-    $funcion = $_GET['fn'];
-
-    switch ($funcion) {
-      case 'selectAll':
-
-        $domicilio = $rDomicilio->GenerateReport();
-        include_once '../views/domicilio/domicilios.php';
-        break;
-
-      default:
-        // code...
-        break;
-    }
-  }
 
   

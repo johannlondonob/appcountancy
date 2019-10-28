@@ -2,7 +2,7 @@
 <html lang="es">
 
 <head>
-    <?php include_once 'inc/head.php'; ?>
+    <?php include_once 'views/common/head.php' ?>
     <title>AppCountancy</title>
 </head>
 

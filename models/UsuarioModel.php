@@ -87,20 +87,3 @@
             }
         }        
     }
-/* require_once('../config/Db.php');
-
-$userModel = new UsuarioModel();
-$userModel -> setLoginUsuario('JOHANL');
-$userModel -> setClaveUsuario('199520');
-
-    $usuarioModel = new UsuarioModel();
-
-    $usuarioModel = $usuarioModel -> LogIn($userModel);
-
-    foreach ($usuarioModel as $key) {
-        echo $key -> getIdUsuario() . "<br>";
-        echo $key -> getIdTercero() . "<br>";
-        echo $key -> getIdRol() . "<br>";
-        echo $key -> getLoginUsuario() . "<br>";
-        echo $key -> getClaveUsuario() . "<br>";
-    } */
