@@ -42,7 +42,7 @@
                                     <div class="form-group mb-3">
                                         <input name="clave" id="clave" type="password" class="form-control" placeholder="Clave" >
                                     </div>
-                                    <button id="registroUsuario" class="btn btn-outline-primary col-12">¡Empezar!</button>
+                                    <button id="registroUsuario" class="btn btn-outline-primary col-12" type="">¡Empezar!</button>
                                 </form>
                             </div>
                         </div>
