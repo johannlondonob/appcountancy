@@ -1,9 +1,5 @@
-<script type="text/javascript"
-  src="../../assets/datatables/datatables.min.js">
-</script>
-<script type="text/javascript"
-  src="../../assets/datatables/Buttons-1.6.1/js/buttons.html5.min.js">
-</script>
+<script type="text/javascript" src="../../assets/datatables/datatables.min.css"></script>
+<script type="text/javascript" src="../../assets/datatables/Buttons-1.6.1/js/buttons.html5.min.js"></script>
 <script>
   $(document).ready(function () {
     $('#tabla').DataTable({
@@ -41,4 +37,4 @@
       }
     });
   });
-</script>;
+</script>
