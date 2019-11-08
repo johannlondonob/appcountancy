@@ -21,28 +21,34 @@
 
                     $resultQuery = $usuario->LogIn();
 
-                    $consulta = [
-                        'error' => '0',
-                        'message' => 'La solicitud se pudo procesar correctamente.',
-                        'data' => [$resultQuery]
-                    ];
-                    echo json_encode($consulta);
+                    if ($resultQuery) {
+                        
+                        $consulta = [
+                            'error' => '0',
+                            'message' => 'La solicitud se pudo procesar correctamente.',
+                            'data' => [$resultQuery]
+                        ];
+                        echo json_encode($consulta);
+                    } else {
+                        
+                        $consulta = [
+                            'error' => '1',
+                            'message' => 'La solicitud no se pudo procesar. Error #1',
+                            'data' => []
+                        ];
+                        echo json_encode($consulta);
+                    }
+
                 } else {
                     $consulta = [
-                        'error' => '1',
-                        'message' => 'La solicitud no se pudo procesar. Error #1',
+                        'error' => '2',
+                        'message' => 'No se han enviado los datos necesarios para la autenticación. Error #2',
                         'data' => []
                     ];
+
                     echo json_encode($consulta);
                 }
-
-/*                 $titlePage = 'Login';
-                include_once '../views/common/head.php';
-                include_once '../views/common/navbar.php';
-                include_once '../views/usuario/index.php';
-                include_once '../views/common/bootstrapJS.php'; */
-
-
+                
                 break;
             
             default:

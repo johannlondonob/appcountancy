@@ -13,15 +13,14 @@ $(document).ready(function () {
       success: function (response) {
         let ok = JSON.parse(response);
 
-        if (ok.error === 0) {
+        console.log(ok.error);
+
+        /* if (ok.error == 0) {
           location.href = '../../views/usuario/index.php';
           console.log(ok);
         } else {
           alert("Error");
-        }
-      },
-      beforeSend: function () {
-
+        } */
       },
     });
   });

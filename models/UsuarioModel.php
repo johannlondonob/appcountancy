@@ -69,7 +69,15 @@
 
             $transaccion -> execute();
 
-            if ($transaccion) {
+             $usuario = $transaccion->fetch(PDO::FETCH_ASSOC);
+
+            if ($usuario) {
+                return $usuario;
+            } else {
+                return false;
+            }
+
+/*             if ($transaccion) {
                 $usuario = [];
 
                 foreach ($transaccion as $user) {
@@ -84,6 +92,6 @@
                     $usuario[] = $receptorValores;
                 }
                 return $usuario;
-            }
+            } */
         }        
     }

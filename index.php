@@ -27,7 +27,7 @@
                         <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0" action="" method="post">
+                <!-- <form class="form-inline my-2 my-lg-0" action="" method="post">
                     <div class="btn-group dropleft">
                         <div class="dropdown ">
                             <button class="btn btn-outline-success dropdown-toggle" type="button" id="iniciarSesion"
@@ -37,19 +37,37 @@
                             <div class="dropdown-menu p-3" aria-labelledby="iniciarSesion">
                                 <form action="" method="post" class="dropdown-menu">
                                     <div class="form-group mb-3">
-                                        <input name="usuario" id="usuario" type="text" class="form-control" placeholder="Usuario" >
+                                        <input name="usuario" id="usuario" type="text" class="form-control"
+                                            placeholder="Usuario">
                                     </div>
                                     <div class="form-group mb-3">
-                                        <input name="clave" id="clave" type="password" class="form-control" placeholder="Clave" >
+                                        <input name="clave" id="clave" type="password" class="form-control"
+                                            placeholder="Clave">
                                     </div>
-                                    <button id="registroUsuario" class="btn btn-outline-primary col-12" type="">¡Empezar!</button>
                                 </form>
+                                <button id="registroUsuario" class="btn btn-outline-primary col-12"
+                                    type="">¡Empezar!</button>
                             </div>
                         </div>
                     </div>
-                </form>
+                </form> -->
             </div>
         </nav>
+    </div>
+
+    <div class="container mt-5 pt-5">
+        <section class="w-50 m-auto">
+            <div class="display-4 mb-3">Ingresar</div>
+            <form action="" method="post" class="">
+                <div class="form-group mb-3">
+                    <input name="usuario" id="usuario" type="text" class="form-control" placeholder="Usuario">
+                </div>
+                <div class="form-group mb-3">
+                    <input name="clave" id="clave" type="password" class="form-control" placeholder="Clave">
+                </div>
+            </form>
+            <button id="registroUsuario" class="btn btn-outline-primary col-12" type="">¡Empezar!</button>
+        </section>
     </div>
 </body>
 <script src="assets/jquery/js/jquery-3.4.1.min.js"></script>
