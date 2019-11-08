@@ -33,7 +33,7 @@
                         
                         $consulta = [
                             'error' => '1',
-                            'message' => 'La solicitud no se pudo procesar. Error #1',
+                            'message' => 'La solicitud no se pudo procesar.',
                             'data' => []
                         ];
                         echo json_encode($consulta);
@@ -42,7 +42,7 @@
                 } else {
                     $consulta = [
                         'error' => '2',
-                        'message' => 'No se han enviado los datos necesarios para la autenticación. Error #2',
+                        'message' => 'No se han enviado los datos necesarios para la autenticación.',
                         'data' => []
                     ];
 

@@ -2,6 +2,7 @@ $(document).ready(function () {
   $("#registroUsuario").click(function () {
     let usuario = $("#usuario").val();
     let clave = $("#clave").val();
+    let tituoFormulario = $("#tituloFormularioIngresar");
 
     $.ajax({
       url: "controllers/UsuarioController.php?fn=login",
@@ -15,12 +16,24 @@ $(document).ready(function () {
 
         console.log(ok.error);
 
-        /* if (ok.error == 0) {
-          location.href = '../../views/usuario/index.php';
-          console.log(ok);
-        } else {
-          alert("Error");
-        } */
+        switch (ok.error) {
+          case '0':
+            // alert('Eres bienvenido.');
+            location.href = 'views/usuario/index.php';
+            break;
+          case '1':
+            alert(ok.message);
+            break;
+          case '2':
+            alert(ok.message);
+            break;
+          default:
+            alert('Creo que estás perdido.');
+            break;
+        }
+      },
+      beforeSend: function () {
+        tituoFormulario.text('Ingresando...').addClass('text-primary');
       },
     });
   });

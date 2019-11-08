@@ -57,7 +57,7 @@
 
     <div class="container mt-5 pt-5">
         <section class="w-50 m-auto">
-            <div class="display-4 mb-3">Ingresar</div>
+            <div id="tituloFormularioIngresar" class="display-4 mb-3">Ingresar</div>
             <form action="" method="post" class="">
                 <div class="form-group mb-3">
                     <input name="usuario" id="usuario" type="text" class="form-control" placeholder="Usuario">
