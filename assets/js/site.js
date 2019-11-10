@@ -1,8 +1,15 @@
+function ResetLogin() {
+  let tituloFormulario = $("#tituloFormularioIngresar");
+  tituloFormulario.text('Ingresar').removeClass('text-primary');
+}
+
 $(document).ready(function () {
+
   $("#registroUsuario").click(function () {
     let usuario = $("#usuario").val();
     let clave = $("#clave").val();
-    let tituoFormulario = $("#tituloFormularioIngresar");
+    let tituloFormulario = $("#tituloFormularioIngresar");
+
 
     $.ajax({
       url: "controllers/UsuarioController.php?fn=login",
@@ -18,23 +25,28 @@ $(document).ready(function () {
 
         switch (ok.error) {
           case '0':
-            // alert('Eres bienvenido.');
             location.href = 'views/usuario/index.php';
             break;
           case '1':
-            alert(ok.message);
+            // alert(ok.message);
+            ResetLogin();
+
             break;
           case '2':
-            alert(ok.message);
+            // alert(ok.message);
+            ResetLogin();
+
             break;
           default:
-            alert('Creo que estás perdido.');
+            // alert('Creo que estás perdido.');
+            ResetLogin();
+
             break;
         }
       },
       beforeSend: function () {
-        tituoFormulario.text('Ingresando...').addClass('text-primary');
-      },
+        tituloFormulario.text('Ingresando...').addClass('text-primary');
+      }
     });
   });
 });

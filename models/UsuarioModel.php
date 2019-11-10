@@ -8,68 +8,79 @@
         private $idRol;
         public $db;
 
-        function __construct() {
+        public function __construct()
+        {
             $this -> db = Db::Conectar();
         }
         
-        function setIdUsuario($idUsuario = NULL) {
+        public function setIdUsuario($idUsuario = null)
+        {
             $this -> idUsuario = $idUsuario;
         }
         
-        function setIdTercero($idTercero) {
+        public function setIdTercero($idTercero)
+        {
             $this -> idTercero = $idTercero;
         }
         
-        function setLoginUsuario($loginUsuario) {
+        public function setLoginUsuario($loginUsuario)
+        {
             $this -> loginUsuario = $loginUsuario;
         }
         
-        function setClaveUsuario($claveUsuario) {
+        public function setClaveUsuario($claveUsuario)
+        {
             $this -> claveUsuario = $claveUsuario;
         }
         
-        function setIdRol($idRol) {
+        public function setIdRol($idRol)
+        {
             $this -> idRol = $idRol;
         }
         
-        function getIdUsuario() {
+        public function getIdUsuario()
+        {
             return $this -> idUsuario;
         }
         
-        function getIdTercero() {
+        public function getIdTercero()
+        {
             return $this -> idTercero;
         }
         
-        function getLoginUsuario() {
+        public function getLoginUsuario()
+        {
             return $this -> loginUsuario;
         }
         
-        function getClaveUsuario() {
+        public function getClaveUsuario()
+        {
             return $this -> claveUsuario;
         }
         
-        function getIdRol() {
+        public function getIdRol()
+        {
             return $this -> idRol;
         }
 
         /**
          * Autenticar la entidad Usuario con cuenta y clave
-         * 
+         *
          * Esta función le preguntará al servidor si el intento de loggearse existe y coincide su clave, devolverá un array del tercero.
-         * 
+         *
          * @param UsuarioModel Un objeto de tipo UsuarioModel que contenga los datos necesarios para la verificación de la cuenta.
          * @return UsuarioModel
          */
-        function LogIn() {
-            
-            $instruccionSql = 'SELECT * FROM usuario WHERE login_usuario = :loginUsuario AND clave_usuario = :claveUsuario';
+        public function LogIn()
+        {
+            $instruccionSql = 'SELECT id_rol, id_tercero, id_usuario FROM usuario WHERE login_usuario = :loginUsuario AND clave_usuario = :claveUsuario';
             $transaccion = $this -> db -> prepare($instruccionSql);
             $transaccion -> bindValue('loginUsuario', $this->getLoginUsuario());
             $transaccion -> bindValue('claveUsuario', $this->getClaveUsuario());
 
             $transaccion -> execute();
 
-             $usuario = $transaccion->fetch(PDO::FETCH_ASSOC);
+            $usuario = $transaccion->fetch(PDO::FETCH_ASSOC);
 
             if ($usuario) {
                 return $usuario;
@@ -77,21 +88,21 @@
                 return false;
             }
 
-/*             if ($transaccion) {
-                $usuario = [];
+            /*             if ($transaccion) {
+                            $usuario = [];
 
-                foreach ($transaccion as $user) {
-                    $receptorValores = new UsuarioModel();
+                            foreach ($transaccion as $user) {
+                                $receptorValores = new UsuarioModel();
 
-                    $receptorValores -> setIdUsuario($user['id_usuario']);
-                    $receptorValores -> setIdTercero($user['id_tercero']);
-                    $receptorValores -> setIdRol($user['id_rol']);
-                    $receptorValores -> setLoginUsuario($user['login_usuario']);
-                    $receptorValores -> setClaveUsuario($user['clave_usuario']);
+                                $receptorValores -> setIdUsuario($user['id_usuario']);
+                                $receptorValores -> setIdTercero($user['id_tercero']);
+                                $receptorValores -> setIdRol($user['id_rol']);
+                                $receptorValores -> setLoginUsuario($user['login_usuario']);
+                                $receptorValores -> setClaveUsuario($user['clave_usuario']);
 
-                    $usuario[] = $receptorValores;
-                }
-                return $usuario;
-            } */
-        }        
+                                $usuario[] = $receptorValores;
+                            }
+                            return $usuario;
+                        } */
+        }
     }
