@@ -8,16 +8,11 @@
 
   include_once '../../views/common/head.php';
   include_once '../../views/common/navbar.php';
+  include_once '../../views/common/app_head.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
-</head>
-<body>
-  
-</body>
-</html>  
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita modi odit aliquam! Eaque facere molestias officia iusto fugit asperiores magni illo esse incidunt fuga atque minima omnis totam, dolorum architecto.</p>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita modi odit aliquam! Eaque facere molestias officia iusto fugit asperiores magni illo esse incidunt fuga atque minima omnis totam, dolorum architecto.</p>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita modi odit aliquam! Eaque facere molestias officia iusto fugit asperiores magni illo esse incidunt fuga atque minima omnis totam, dolorum architecto.</p>
+      <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita modi odit aliquam! Eaque facere molestias officia iusto fugit asperiores magni illo esse incidunt fuga atque minima omnis totam, dolorum architecto.</p>
+
+<?php include_once '../../views/common/app_footer.php'; ?> 

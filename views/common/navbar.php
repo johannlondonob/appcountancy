@@ -21,7 +21,7 @@
             <?php if (empty($_SESSION)) { ?>
             <form class="form-inline my-2 my-lg-0">
                 <input class="form-control mr-sm-2 d-none" type="search" placeholder="Search" aria-label="Search">
-                <a href="../views/usuario/login.php" tabindex="-1" class="btn btn-primary"> Iniciar sesión</a>
+                <a href="../../../../index.php" tabindex="-1" class="btn btn-primary"> Iniciar sesión</a>
             </form>
             <?php } else { ?>
             <form class="form-inline my-2 my-lg-0">
