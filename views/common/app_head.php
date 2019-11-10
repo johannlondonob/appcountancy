@@ -5,12 +5,12 @@
                   class="navbar navbar-expand-md navbar-light flex-md-column flex-lg-column p-0 d-flex align-items-start">
                   <a class="navbar-brand" href="#">Menú</a>
                   <button class="navbar-toggler" type="button" data-toggle="collapse"
-                      data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                      data-target="#menu-app" aria-controls="menu-app" aria-expanded="false"
                       aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>
                   </button>
 
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <div class="collapse navbar-collapse" id="menu-app">
                       <ul class="navbar-nav flex-column">
                           <li class="nav-item active">
                               <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>

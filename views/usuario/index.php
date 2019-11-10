@@ -15,4 +15,7 @@
       <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita modi odit aliquam! Eaque facere molestias officia iusto fugit asperiores magni illo esse incidunt fuga atque minima omnis totam, dolorum architecto.</p>
       <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita modi odit aliquam! Eaque facere molestias officia iusto fugit asperiores magni illo esse incidunt fuga atque minima omnis totam, dolorum architecto.</p>
 
-<?php include_once '../../views/common/app_footer.php'; ?> 
+<?php
+  include_once '../../views/common/app_footer.php';
+  include_once '../../views/common/bootstrapJS.php';
+?> 
