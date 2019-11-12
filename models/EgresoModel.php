@@ -8,52 +8,63 @@
         private $observacionGasto;
         public $db;
 
-        function __construct() {
+        public function __construct()
+        {
             $this->db = Db::Conectar();
-            
         }
 
-        function setIdGasto($idGasto) {
+        public function setIdGasto($idGasto)
+        {
             $this->idGasto = $idGasto;
         }
 
-        function setFechaGasto($fechaGasto) {
+        public function setFechaGasto($fechaGasto)
+        {
             $this->fechaGasto = $fechaGasto;
         }
 
-        function setConceptoGasto($conceptoGasto) {
+        public function setConceptoGasto($conceptoGasto)
+        {
             $this->conceptoGasto = $conceptoGasto;
         }
 
-        function setValorGasto($valorGasto) {
+        public function setValorGasto($valorGasto)
+        {
             $this->valorGasto = $valorGasto;
         }
 
-        function setObservacionGasto($observacionGasto) {
+        public function setObservacionGasto($observacionGasto)
+        {
             $this->observacionGasto = $observacionGasto;
         }
 
-        function getIdGasto() {
+        public function getIdGasto()
+        {
             return $this->idGasto;
         }
 
-        function getFechaGasto() {
+        public function getFechaGasto()
+        {
             return $this->fechaGasto;
         }
 
-        function getConceptoGasto() {
+        public function getConceptoGasto()
+        {
             return $this->conceptoGasto;
         }
 
-        function getValorGasto() {
+        public function getValorGasto()
+        {
             return $this->valorGasto;
         }
 
-        function getObservacionGasto() {
+        public function getObservacionGasto()
+        {
             return $this->observacionGasto;
         }
 
-        function InsertOnce() {
+        public function InsertOnce()
+        {
             $instruccionSql = 'INSERT INTO egreso(id_gasto, fecha_gasto, concepto_gasto, valor_gasto, observacion_gasto)
                                 VALUES(:idGasto, :fechaGasto, :conceptoGasto, :valorGasto, :observacionGasto)';
             $transaccion = $this->db->prepare($instruccionSql);
@@ -65,12 +76,20 @@
             return $transaccion->execute();
         }
 
-        function SelectAll() {
+        public function SelectAll()
+        {
             $instruccionSql = 'SELECT * FROM egreso';
             $transaccion = $this->db->prepare($instruccionSql);
             $transaccion->execute();
+            $datos = $transaccion->fetchAll(PDO::FETCH_ASSOC);
 
-            $egresoModel = [];
+            if ($datos) {
+                return $datos;
+            } else {
+                return false;
+            }
+            
+            /* $egresoModel = [];
 
             foreach ($transaccion as $key) {
                 $receptorValores = new EgresoModel();
@@ -83,6 +102,6 @@
 
                 $egresoModel[] = $receptorValores;
             }
-            return $egresoModel;
+            return $egresoModel; */
         }
     }

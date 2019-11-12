@@ -8,6 +8,15 @@ function ResetLogin() {
   tituloFormulario.text('Ingresar').removeClass('text-primary');
 }
 
+function ResetContent() {
+  /* let subcontainer = $("#subcontainer");
+  let table = $("#table"); */
+  let appSubcontainer = document.getElementById("app-subcontainer");
+  let appContent = document.getElementById("app-content");
+
+  appSubcontainer.removeChild(appContent);
+}
+
 /**
  * Inicializar los botones del contenedor de la app
  * 
@@ -29,7 +38,6 @@ function IniciarBotones() {
  */
 $(document).ready(function () {
   IniciarBotones();
-
   $(window).resize(() => {
     IniciarBotones();
   })
@@ -105,5 +113,91 @@ $(document).ready(function () {
 
   });
 
+  $("#perfil").click((e) => {
+    // e.preventDefault();
+    $.ajax({
+      url: "../../controllers/UsuarioController.php?fn=perfil",
+      type: "GET",
+      data: {},
+      success: function (response) {
+        console.log(response);
+        /* if (response != null & response != "") {
+          let data = JSON.parse(response);
+          console.log(data[0][2]['id_usuario']);
+        }; */
+      },
+    });
+  });
+
+  $("#zonas").click(() => {
+    ResetContent();
+  });
+
+  $("#egresos").click((e) => {
+    e.preventDefault();
+    let subcontainer = $("#app-subcontainer");
+
+    $.ajax({
+      url: "../../controllers/EgresoController.php?fn=ver",
+      type: "GET",
+      data: {},
+      success: function (response) {
+        // console.log(response);
+        if (response != null & response != "") {
+          let data = JSON.parse(response);
+
+          thead = "";
+          tbody = "";
+          tfooter = "";
+
+          thead = `
+            <div id="app-content" class="w-100">
+              <div id="table" class="table-responsive table-responsive-md">
+                <table class="table table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Fecha gasto</th>
+                            <th scope="col">Concepto gasto</th>
+                            <th scope="col">Valor gasto</th>
+                            <th scope="col">Observaciones</th>
+                            <th scope="col" class="text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+          `;
+
+          tfooter = `
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+          `;
+
+          for (const key in data.data) {
+            if (data.data.hasOwnProperty(key)) {
+              const element = data.data[key];
+              tbody += `
+                <tr>
+                  <td class="align-middle"> ${element['fecha_gasto']} </td>
+                  <td class="align-middle"> ${element['concepto_gasto']} </td>
+                  <td class="align-middle"> ${element['valor_gasto']} </td>
+                  <td class="align-middle"> ${element['observacion_gasto']} </td>
+                  <td class="align-middle text-center">
+                    <button onClick="actualizarEgreso(${element['id_gasto']})" class="btn btn-sm m-1 btn-outline-primary btn_actualizar">Actualizar</button>
+                    <button onClick="eliminarEgreso(${element['id_gasto']})" class="btn btn-sm m-1 btn-outline-danger btn_eliminar">Eliminar</button>
+                  </td>
+                </tr>
+              `;
+            };
+          };
+
+          table = thead + tbody + tfooter;
+
+          subcontainer.html(table);
+
+        };
+      },
+    });
+  });
 
 });

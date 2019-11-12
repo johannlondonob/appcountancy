@@ -9,18 +9,35 @@
 
   
   if (isset($_GET['fn'])) {
-    $accion = $_GET['fn'];
+      $accion = $_GET['fn'];
     
-    switch ($accion) {
-      case 'selectAll':
-      $arrayEgreso = $egresoModel -> SelectAll();
-      $nombreRol = $_SESSION['nombreRol'];
-      $titlePage ='Ver egresos';
+      switch ($accion) {
+      case 'ver':
+      $egresos = $egresoModel -> SelectAll();
+      if ($egresos) {
+          $datos = [
+            "error" => "0",
+            "message" => "Éxito",
+            "data" => $egresos
+          ];
+          echo json_encode($datos);
+          return;
+      }
+
+      $datos = [
+        "error" => "0",
+        "message" => "Éxito",
+        "data" => []
+      ];
+        echo json_encode($datos);
+        return;
+
+      /* $titlePage ='Ver egresos';
       include_once('../views/common/head.php');
       include_once('../views/common/navbar.php');
       include_once('../views/egreso/ver_egresos.php');
       include_once('../views/common/datatables.php');
-      include_once('../views/common/bootstrapJS.php');
+      include_once('../views/common/bootstrapJS.php'); */
       break;
       
       case 'deleteOnce':

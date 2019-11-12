@@ -88,21 +88,21 @@
                 return false;
             }
 
-            /*             if ($transaccion) {
-                            $usuario = [];
+            /* if ($transaccion) {
+                $usuario = [];
 
-                            foreach ($transaccion as $user) {
-                                $receptorValores = new UsuarioModel();
+                foreach ($transaccion as $user) {
+                    $receptorValores = new UsuarioModel();
 
-                                $receptorValores -> setIdUsuario($user['id_usuario']);
-                                $receptorValores -> setIdTercero($user['id_tercero']);
-                                $receptorValores -> setIdRol($user['id_rol']);
-                                $receptorValores -> setLoginUsuario($user['login_usuario']);
-                                $receptorValores -> setClaveUsuario($user['clave_usuario']);
+                    $receptorValores -> setIdUsuario($user['id_usuario']);
+                    $receptorValores -> setIdTercero($user['id_tercero']);
+                    $receptorValores -> setIdRol($user['id_rol']);
+                    $receptorValores -> setLoginUsuario($user['login_usuario']);
+                    $receptorValores -> setClaveUsuario($user['clave_usuario']);
 
-                                $usuario[] = $receptorValores;
-                            }
-                            return $usuario;
-                        } */
+                    $usuario[] = $receptorValores;
+                }
+                return $usuario;
+            } */
         }
     }

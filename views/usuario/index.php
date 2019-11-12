@@ -11,9 +11,7 @@
   include_once '../../views/common/app_head.php';
 ?>
 
-/**
- * A partir de aquí se dibujará la información procesada.
- */
+<!-- A partir de aquí se dibujará la información procesada. -->
 
 <?php
   include_once '../../views/common/app_footer.php';

@@ -2,7 +2,7 @@
 <script type="text/javascript" src="../../assets/datatables/Buttons-1.6.1/js/buttons.html5.min.js"></script>
 <script>
   $(document).ready(function () {
-    $('#tabla').DataTable({
+    $('#table').DataTable({
       dom: "<'d-flex justify-content-between mb-4 flex-column flex-lg-row flex-md-row' <f 'mr-3'> <B > ></> t <'d-flex justify-content-between mt-4 flex-column flex-lg-row flex-md-row align-items-center'l i p></>",
       buttons: [
         'csv', 'print'

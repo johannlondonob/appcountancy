@@ -13,87 +13,108 @@
         private $activo;
         public $db;
 
-        function __construct() {
+        public function __construct()
+        {
             $this -> db = Db::Conectar();
         }
 
-        function setIdTercero($idTercero = NULL) {
+        public function setIdTercero($idTercero)
+        {
             $this -> idTercero = $idTercero;
         }
 
-        function setNroIdentificacion($nroIdentificacion) {
+        public function setNroIdentificacion($nroIdentificacion)
+        {
             $this -> nroIdentificacion = $nroIdentificacion;
         }
 
-        function setPrimerNombre($primerNombre) {
+        public function setPrimerNombre($primerNombre)
+        {
             $this -> primerNombre = $primerNombre;
         }
 
-        function setSegundoNombre($segundoNombre = NULL) {
+        public function setSegundoNombre($segundoNombre)
+        {
             $this -> segundoNombre = $segundoNombre;
         }
 
-        function setPrimerApellido($primerApellido) {
+        public function setPrimerApellido($primerApellido)
+        {
             $this -> primerApellido = $primerApellido;
         }
 
-        function setSegundoApellido($segundoApellido = NULL) {
+        public function setSegundoApellido($segundoApellido)
+        {
             $this -> segundoApellido = $segundoApellido;
         }
 
-        function setTelefonoUno($telefonoUno) {
+        public function setTelefonoUno($telefonoUno)
+        {
             $this -> telefonoUno = $telefonoUno;
         }
 
-        function setTelefonoDos($telefonoDos = NULL) {
+        public function setTelefonoDos($telefonoDos)
+        {
             $this -> telefonoDos = $telefonoDos;
         }
 
-        function setEmail($email) {
+        public function setEmail($email)
+        {
             $this -> email = $email;
         }
 
-        function setActivo($activo) {
+        public function setActivo($activo)
+        {
             $this -> activo = $activo;
         }
 
-        function getIdTercero() {
+        public function getIdTercero()
+        {
             return $this -> idTercero;
         }
 
-        function getNroIdentificacion() {
+        public function getNroIdentificacion()
+        {
             return $this -> nroIdentificacion;
         }
 
-        function getPrimerNombre() {
+        public function getPrimerNombre()
+        {
             return $this -> primerNombre;
         }
 
-        function getSegundoNombre() {
+        public function getSegundoNombre()
+        {
             return $this -> segundoNombre;
         }
 
-        function getPrimerApellido() {
+        public function getPrimerApellido()
+        {
             return $this -> primerApellido;
         }
 
-        function getSegundoApellido() {
+        public function getSegundoApellido()
+        {
             return $this -> segundoApellido;
         }
 
-        function getTelefonoUno() {
+        public function getTelefonoUno()
+        {
             return $this -> telefonoUno;
         }
 
-        function getTelefonoDos() {
+        public function getTelefonoDos()
+        {
             return $this -> telefonoDos;
         }
 
-        function getEmail() {
+        public function getEmail()
+        {
             return $this -> email;
         }
 
-        function getActivo() {
+        public function getActivo()
+        {
             return $this -> activo;
         }
 
@@ -106,8 +127,8 @@
          * @param string $idTercero Dígito único del tercero. Siempre de la clave primaria.
          * @return TerceroModel
          */
-        function Find() {
-
+        public function Find()
+        {
             $instruccionSql = 'SELECT * FROM tercero WHERE id_tercero = :idTercero';
             $transaccion = $this -> db -> prepare($instruccionSql);
             $transaccion -> bindValue('idTercero', $this->idTercero);
@@ -134,8 +155,8 @@
             return $tercero;
         }
 
-        function SelectAll() {
-
+        public function SelectAll()
+        {
             $instruccionSql = 'SELECT * FROM tercero';
 
             $transaccion = $this -> db -> prepare($instruccionSql);
