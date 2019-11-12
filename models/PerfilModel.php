@@ -56,8 +56,8 @@ require_once '../models/TerceroModel.php';
 
         public function FindProfile()
         {
-            $query = 'SELECT *
-                /* usuario.id_usuario,
+            $query = 'SELECT
+                usuario.id_usuario,
                 usuario.login_usuario,
                 tercero.id_tercero,
                 tercero.nro_identificacion,
@@ -70,16 +70,17 @@ require_once '../models/TerceroModel.php';
                 tercero.email,
                 tercero.activo,
                 empresa.id_empresa,
+                empresa.nro_identificacion,
                 empresa.razon_social,
-                -- empresa.direccion,
-                -- empresa.telefono_uno,
-                -- empresa.telefono_dos,
-                -- empresa.email_uno,
-                -- empresa.email_dos,
-                -- empresa.activo,
+                empresa.direccion,
+                empresa.telefono_uno,
+                empresa.telefono_dos,
+                empresa.email_uno,
+                empresa.email_dos,
+                empresa.activo,
                 rol.id_rol,
                 rol.nombre,
-                rol.descripcion */
+                rol.descripcion
             FROM usuario 
             INNER JOIN usuario_empresa ON usuario.id_usuario = usuario_empresa.id_usuario
             INNER JOIN tercero ON usuario.id_tercero = tercero.id_tercero
@@ -92,7 +93,7 @@ require_once '../models/TerceroModel.php';
             $transaccion->bindValue('idTercero', $this->idTercero);
             $transaccion->execute();
 
-            $data = $transaccion->fetch(PDO::FETCH_ASSOC);
+            $data = $transaccion->fetchAll(PDO::FETCH_NAMED);
 
             if ($data) {
                 return $data;

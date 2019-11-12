@@ -58,12 +58,6 @@
                 }
                 
                 $datos = $perfil->FindProfile();
-
-                // $datos = json_encode($perfil);
-
-                // var_dump($datos);
-                // var_dump($perfil);
-                // exit();
                     
                 if ($datos) {
                     $data = [

@@ -50,29 +50,29 @@
               <div id="nav-botones" class="row mb-4 px-3">
                   <ul class="nav">
                       <li class="nav-item">
-                          <button id="refrescar" class="btn btn-primary mr-2">
+                          <button id="refresh" class="btn btn-primary mr-2" onClick="">
                               <i class="mr-lg-1 mr-md-1 mr-0 fas fa-sync-alt"></i>
                               <span class="icon-text">Refrescar</span>
                           </button>
                       </li>
-                      <li class="nav-item">
-                          <button class="btn btn-primary mr-2">
+                      <!-- <li class="nav-item">
+                          <button id="buscar" class="btn btn-primary mr-2" onClick="">
                               <i class="mr-lg-1 mr-md-1 mr-0 fas fa-search"></i>
                               <span class="icon-text">Buscar</span>
                           </button>
-                      </li>
+                      </li> -->
                       <li class="nav-item">
-                          <button class="btn btn-primary mr-2">
+                          <button id="add" class="btn btn-primary mr-2" onClick="">
                               <i class="mr-lg-1 mr-md-1 mr-0 fas fa-plus"></i>
                               <span class="icon-text">Agregar</span>
                           </button>
                       </li>
-                      <li class="nav-item">
-                          <button class="btn btn-primary mr-2">
+                      <!-- <li class="nav-item">
+                          <button id="borrar" class="btn btn-primary mr-2" onClick="">
                               <i class="mr-lg-1 mr-md-1 mr-0 fas fa-eraser"></i>
                               <span class="icon-text">Borrar</span>
                           </button>
-                      </li>
+                      </li> -->
                   </ul>
               </div>
               <div id="app-subcontainer" class="row px-3">
