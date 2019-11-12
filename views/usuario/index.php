@@ -16,4 +16,5 @@
 <?php
   include_once '../../views/common/app_footer.php';
   include_once '../../views/common/bootstrapJS.php';
+  include_once '../common/footer.php';
 ?> 

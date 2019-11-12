@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap-reboot.min.css">
     <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap-grid.min.css">
     <link rel="stylesheet" href="../../assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/datatables/datatables.min.css">
     <!-- <link rel="stylesheet" href="../../assets/css/custom.css"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
     <title> <?= $titlePage ?> - AppCountancy</title>
