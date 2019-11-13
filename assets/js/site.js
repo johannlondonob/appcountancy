@@ -33,7 +33,7 @@ function ResetContent() {
  */
 function AppendToSubcontainer(element) {
   let subcontainer = $("#app-subcontainer");
-  subcontainer.html(`<div id="app-content" class="w-100"> ${element} </div>`);
+  subcontainer.html(`<div" id="app-content" class="w-100"> ${element} </div>`);
 }
 
 /**
@@ -67,15 +67,419 @@ function InitButtons() {
   };
 }
 
+function Welcome(title, link) {
+
+  let welcome = `
+    <div class="jumbotron">
+      <h1 class="display-4">${title}</h1>
+      <p class="lead">En esta aplicación vas a lograr avances con tu contabilidad.</p>
+      <hr class="my-4">
+      <p>${title} es una herramienta para que los conceptos de la contabilidad dejen de ser una barrera. Estamos dispuestos a ayudarte.</p>
+      <a class="btn btn-outline-primary btn-lg mt-3" href="${link}" role="button">Saber más</a>
+    </div>
+  `;
+
+  return welcome;
+
+}
+
+function refreshPerfil() {
+  $.ajax({
+    url: "../../controllers/UsuarioController.php?fn=perfil",
+    type: "GET",
+    data: {},
+    success: function (response) {
+      if (response != null & response != "") {
+        let data = JSON.parse(response);
+
+        for (const key in data.data) {
+          if (data.data.hasOwnProperty(key)) {
+            const element = data.data[key];
+
+            tbody = "";
+
+            // Para recuperar las empresas de las cuales el usuario puede acceder desde el sistema.
+            element.forEach(columna => {
+              tbody += `
+                  <tr>
+                    <td class="align-middle"> ${columna['nro_identificacion'][1]} </td>
+                    <td class="align-middle"> ${columna['razon_social']} </td>
+                    <td class="align-middle"> ${columna['direccion']} </td>
+                    <td class="align-middle"> ${columna['telefono_uno'][1]} </td>
+                    <td class="align-middle"> ${(columna['telefono_dos'][1]) == null ? '-' : columna['telefono_dos'][1]} </td>
+                    <td class="align-middle"> ${columna['email_uno']} </td>
+                    <td class="align-middle"> ${(columna['email_dos']) == null ? '-' : columna['email_dos']} </td>
+                    <td class="align-middle"> ${columna['activo'][1]} </td>
+                  </tr>
+                `;
+            });
+
+            // Para recuperar todos los datos del usuario
+            element.forEach(columna => {
+
+              perfil = `
+                  <h1> Datos personales </h1>
+                    <br>
+
+                    <form>    
+                      <div class="form-row">
+                        <div class="form-group col-lg-4 col-md-12 col-12">
+                          <label for="nroIdentificacion"> <b> Número de identificación </b> </label>
+                          <input name="nroIdentificacion" id="nroIdentificacion" type="text" class="form-control" disabled value="${columna['nro_identificacion'][0]}">
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-12">
+                          <label for="primerNombre"> <b> Primer nombre </b> </label>
+                          <input type="text" class="form-control" value="${columna['primer_nombre']}">
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-12">
+                          <label for="segundoNombre"> <b> Segundo nombre </b> </label>
+                          <input type="text" class="form-control" value="${(columna['segundo_nombre'] == null) ? '' : columna['segundo_nombre']}">
+                        </div>
+                      </div>
+      
+                      <div class="form-row">
+                        <div class="col-lg-4 invisible"></div>
+                        <div class="form-group col-lg-4 col-md-6 col-12">
+                          <label for="primerNombre"> <b> Primer apellido </b> </label>
+                          <input name="primerNombre" id="primerApellido" type="text" class="form-control" value="${columna['primer_apellido']}">
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-12">
+                          <label for="segundoNombre"> <b> Segundo apellido </b> </label>
+                          <input name="segundoNombre" type="text" id="segundoApellido" class="form-control" value="${(columna['segundo_apellido'] == null) ? '' : columna['segundo_apellido']}">
+                        </div>
+                      </div>
+
+                      
+                      <br>
+                      <div class="dropdown-divider"></div>
+                      <h1> Contacto </h1>
+                      <br>
+      
+                      <div class="form-row">
+                        <div class="col-lg-4 invisible"></div>
+                        <div class="form-group col-lg-4 col-md-6 col-12">
+                          <label for="telefonoUno"><b>Teléfono uno </b> </label>
+                          <input name="telefonoUno" type="text" class="form-control" id="telefonoUno" value="${columna['telefono_uno'][0]}">
+                        </div>
+                        <div class="form-group col-lg-4 col-md-6 col-12">
+                          <label for="telefonoDos"><b>Teléfono dos </b> </label>
+                          <input name="telefonoDos" type="text" class="form-control" id="telefonoDos" value="${ (columna['telefono_dos'][0] == null) ? '' : columna['telefono_dos'][0]}">
+                        </div>
+                      </div>
+      
+                      <div class="form-row">
+                        <div class="col-lg-4 invisible"></div>
+                        <div class="form-group col-lg-4 col-md-6 col-12">
+                          <label for="email"><b> Correo electrónico </b> </label>
+                          <input name="email" type="text" class="form-control" id="email" value="${columna['email']}">
+                        </div>
+                        <div class="form-group col-lg-4 invisible"></div>
+                      </div>
+
+                      
+                      <br>
+                      <div class="dropdown-divider"></div>
+                      <h1> Roles </h1>
+                      <br>
+      
+                      <div class="form-row">
+                        <div class="col-lg-4 invisible"></div>
+                        <div class="form-group col-lg-2 col-12">
+                          <label for="nombreRol"><b>Rol asignado </b> </label>
+                          <input name="telefonoUno" type="text" class="form-control" disabled id="nombreRol" value="${columna['nombre']}">
+                        </div>
+                        <div class="form-group col-lg-6 col-12">
+                          <label for="descripcionRol"><b>Descripción del rol </b> </label>
+                          <input name="telefonoDos" type="text" class="form-control" disabled id="descripcionRol" value="${columna['descripcion']}">
+                        </div>
+                      </div>
+                      <input type="hidden" value="${columna['id_tercero']}">
+                      <input type="hidden" value="${columna['id_usuario']}">
+                      <input type="hidden" value="${columna['id_rol']}">  
+                    </form>
+
+                    <br>
+                      <div class="dropdown-divider"></div>
+                      <h1> Empresas asignadas </h1>
+                    <br>
+                  
+                    <div id = "table" class="table-responsive table-responsive-md" >
+                      <table class="table table-hover table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Cédula o NIT</th>
+                            <th scope="col">Razón social</th>
+                            <th scope="col">Direccion</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col">Teléfono dos</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Email dos</th>
+                            <th scope="col">Activo</th>
+                          </tr>
+                        </thead>
+                        <tbody id="tablePerfil">
+                          
+                        </tbody>
+                      </table>
+                    </div>
+                  `;
+            });
+            // Para enviar a la interfaz un formulario con los valores recuperados. 
+            AppendToSubcontainer(perfil);
+            // Para enviar a la interfaz una tabla con todas las filas recuperadas.
+            let tablePerfil = $("#tablePerfil");
+            tablePerfil.slideDown("slow").html(tbody);
+          };
+        };
+      };
+    },
+  });
+
+};
+
+function refreshGastos() {
+  $.ajax({
+    url: "../../controllers/EgresoController.php?fn=ver",
+    type: "GET",
+    data: {},
+    success: function (response) {
+      if (response != null & response != "") {
+        let data = JSON.parse(response);
+
+        thead = "";
+        tbody = "";
+        tfooter = "";
+
+        thead = `
+          <div id= "table" class="table-responsive table-responsive-md" >
+            <table class="table table-hover table-sm">
+              <thead>
+                <tr>
+                  <th scope="col">Fecha gasto</th>
+                  <th scope="col">Concepto gasto</th>
+                  <th scope="col">Valor gasto</th>
+                  <th scope="col">Observaciones</th>
+                  <th scope="col" class="text-center">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                `;
+
+        tfooter = `
+              </tbody>
+            </table>
+          </div >
+          `;
+
+        for (const key in data.data) {
+          if (data.data.hasOwnProperty(key)) {
+            const columna = data.data[key];
+            tbody += `
+              <tr>
+                <td class="align-middle"> ${columna['fecha_gasto']} </td>
+                <td class="align-middle"> ${columna['concepto_gasto']} </td>
+                <td class="align-middle"> ${columna['valor_gasto']} </td>
+                <td class="align-middle"> ${columna['observacion_gasto']} </td>
+                <td class="align-middle text-center">
+                  <button onClick="actualizarEgreso(${columna['id_gasto']})" class="btn btn-sm m-1 btn-outline-primary btn_actualizar">Actualizar</button>
+                  <button onClick="eliminarEgreso(${columna['id_gasto']})" class="btn btn-sm m-1 btn-outline-danger btn_eliminar">Eliminar</button>
+                </td>
+              </tr >
+                `;
+          };
+        };
+        table = thead + tbody + tfooter;
+        AppendToSubcontainer(table);
+      };
+    },
+  });
+}
+
+function refreshDomicilios() {
+  console.log("Refrescando");
+  $.ajax({
+    url: "../../controllers/DomicilioController.php?fn=ver",
+    type: "GET",
+    data: {},
+    beforeSend: function () { },
+    success: function (response) {
+      let data = JSON.parse(response);
+
+      thead = "";
+      tbody = "";
+      tfooter = "";
+
+      data.data.forEach(columna => {
+        tbody += `
+          <tr>
+            <td class="align-middle"> ${columna['fecha_domicilio']} </td>
+            <td class="align-middle"> ${columna['nro_factura']} </td>
+            <td class="align-middle"> ${columna['valor_factura']} </td>
+            <td class="align-middle"> ${columna['nombre_pago']} </td>
+            <td class="align-middle"> ${columna['nombre_zona']} </td>
+            <td class="align-middle"> ${columna['valor_zona']} </td>
+            <td class="align-middle"> ${(columna['fecha_entrega_dinero']) == null ? '-' : columna['fecha_entrega_dinero']} </td>
+            <td class="align-middle"> ${columna['primer_nombre']}  ${columna['primer_apellido']} </td>
+            <td class="align-middle"> ${columna['telefono_uno']} </td>
+            <td class="align-middle text-center">
+              <button onClick="actualizarDomicilio(${columna['id_domicilio']})" class="btn btn-sm m-1 btn-outline-primary btn_actualizar">Actualizar</button>
+              <button onClick="eliminarDomicilio(${columna['id_domicilio']})" class="btn btn-sm m-1 btn-outline-danger btn_eliminar">Eliminar</button>
+            </td>
+          </tr >
+        `;
+      });
+
+      thead = `
+        <div id= "table" class="table-responsive table-responsive-md" >
+          <table class="table table-hover table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Fecha domicilio</th>
+                <th scope="col"># factura</th>
+                <th scope="col">Valor factura</th>
+                <th scope="col">Forma pago</th>
+                <th scope="col">Nombre zona</th>
+                <th scope="col">Valor zona</th>
+                <th scope="col">Día entrega dinero</th>
+                <th scope="col">Mensajero</th>
+                <th scope="col">Celular</th>
+                <th scope="col" class="text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+        `;
+
+      tfooter = `
+            </tbody>
+          </table>
+        </div >
+      `;
+      table = thead + tbody + tfooter;
+      AppendToSubcontainer(table);
+    }
+  });
+}
+
+function refreshZonas() {
+  $.ajax({
+    url: "../../controllers/ZonaController.php?fn=ver",
+    type: "GET",
+    data: {},
+    beforeSend: function () { },
+    success: function (response) {
+      let data = JSON.parse(response);
+
+      thead = "";
+      tbody = "";
+      tfooter = "";
+
+      data.data.forEach(columna => {
+        tbody += `
+          <tr>
+            <td class="align-middle"> ${columna['nombre_zona']} </td>
+            <td class="align-middle"> ${columna['valor_zona']} </td>
+            <td class="align-middle"> ${columna['activo']} </td>
+            <td class="align-middle text-center">
+              <button onClick="actualizarZona(${columna['id_zona']})" class="btn btn-sm m-1 btn-outline-primary btn_actualizar">Actualizar</button>
+              <button onClick="eliminarZona(${columna['id_zona']})" class="btn btn-sm m-1 btn-outline-danger btn_eliminar">Eliminar</button>
+            </td>
+          </tr >
+        `;
+
+        thead = `
+          <div id= "table" class="table-responsive table-responsive-md" >
+            <table class="table table-hover table-sm">
+              <thead>
+                <tr>
+                  <th scope="col">Nombre zona</th>
+                  <th scope="col">Valor</th>
+                  <th scope="col">Activo</th>
+                  <th scope="col" class="text-center">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+        `;
+
+        tfooter = `
+            </tbody>
+          </table>
+        </div >`;
+
+        table = thead + tbody + tfooter;
+        AppendToSubcontainer(table);
+      });
+    },
+  });
+}
+
+function refreshMensajeros() {
+  $.ajax({
+    url: "../../controllers/MensajeroController.php?fn=ver",
+    type: "GET",
+    data: {},
+    beforeSend: function () { },
+    success: function (response) {
+      let data = JSON.parse(response);
+
+      thead = "";
+      tbody = "";
+      tfooter = "";
+
+      thead = `
+        <div id= "table" class="table-responsive table-responsive-md" >
+          <table class="table table-hover table-sm">
+            <thead>
+              <tr>
+                <th scope="col"># de identificación</th>
+                <th scope="col">Nombres</th>
+                <th scope="col">Apellidos</th>
+                <th scope="col">Teléfono</th>
+                <th scope="col">Correo electrónico</th>
+                <th scope="col">Activo</th>
+                <th scope="col" class="text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+      `;
+
+      tfooter = `
+            </tbody>
+          </table>
+        </div >
+      `;
+
+      data.data.forEach(columna => {
+        tbody += `
+          <tr>
+            <td class="align-middle"> ${columna['nro_identificacion']} </td>
+            <td class="align-middle"> ${columna['primer_nombre']}  ${(columna['segundo_nombre']) == null ? '' : columna['segundo_nombre']} </td>
+            <td class="align-middle"> ${columna['primer_apellido']} ${(columna['segundo_apellido']) == null ? '' : columna['segundo_apellido']} </td>
+            <td class="align-middle"> ${columna['telefono_uno']} </td>
+            <td class="align-middle"> ${columna['email']} </td>
+            <td class="align-middle"> ${columna['activo']} </td>
+            <td class="align-middle text-center">
+              <button onClick="actualizarMensajero(${columna['id_mensajero']},${columna['id_tercero']})" class="btn btn-sm m-1 btn-outline-primary btn_actualizar">Actualizar</button>
+              <button onClick="eliminarMensajero(${columna['id_mensajero']},${columna['id_tercero']})" class="btn btn-sm m-1 btn-outline-danger btn_eliminar">Eliminar</button>
+            </td>
+          </tr >
+        `;
+      });
+      table = thead + tbody + tfooter;
+      AppendToSubcontainer(table);
+    },
+  });
+}
 
 /**
  * A partir de aquí, el script efectuará los cambios necesarios de acuerdo a los parámetros establecidos por el flujo del sistema una vez que la página esté completamente cargado y listo para navegarse. 
  */
 $(document).ready(function () {
+  AppendToSubcontainer(Welcome("Appcountancy", "verMas.php"));
+
   InitButtons();
   $(window).resize(() => {
     InitButtons();
-  })
+  });
 
   /**
    * Momento en el que se loggea un usuario.
@@ -89,7 +493,6 @@ $(document).ready(function () {
     let usuario = $("#usuario").val();
     let clave = $("#clave").val();
     let tituloFormulario = $("#tituloFormularioIngresar");
-
 
     $.ajax({
       /**
@@ -137,177 +540,16 @@ $(document).ready(function () {
        * Este evento realizará un cambio al elemento que contiene el título del formulario.
        */
       beforeSend: function () {
-        tituloFormulario.text('Ingresando...').addClass('text-primary');
+        tituloFormulario.text('Ingresando...').addClass('text-primary').slideDown("slow");
       }
     });
   });
-
-  /* $("#refresh").click(() => {
-    let subcontainer = $("#app-subcontainer");
-    subcontainer.append("<p> Hola, mundo </p>");
-
-  }); */
 
   $("#perfil").click((e) => {
     e.preventDefault();
     ResetContent();
     SetFunctionButton("refresh", "refreshPerfil()");
-
-    $.ajax({
-      url: "../../controllers/UsuarioController.php?fn=perfil",
-      type: "GET",
-      data: {},
-      success: function (response) {
-        if (response != null & response != "") {
-          let data = JSON.parse(response);
-
-          for (const key in data.data) {
-            if (data.data.hasOwnProperty(key)) {
-              const element = data.data[key];
-
-              /* for (const iterator of element) {
-                console.log(iterator);
-              } */
-              tbody = "";
-
-              element.forEach(item => {
-                console.log(item);
-                tbody += `
-                  <tr>
-                    <td class="align-middle"> ${item['nro_identificacion'][1]} </td>
-                    <td class="align-middle"> ${item['razon_social']} </td>
-                    <td class="align-middle"> ${item['direccion']} </td>
-                    <td class="align-middle"> ${item['telefono_uno'][1]} </td>
-                    <td class="align-middle"> ${(item['telefono_dos'][1]) == null ? '' : item['telefono_dos'][1]} </td>
-                    <td class="align-middle"> ${item['email_uno']} </td>
-                    <td class="align-middle"> ${(item['email_dos']) == null ? '' : item['email_dos']} </td>
-                    <td class="align-middle"> ${item['activo'][1]} </td>
-                  </tr>
-                `;
-              });
-
-              element.forEach(item => {
-                // console.log(item['razon_social'])
-                // console.log(item['nro_identificacion'][1])
-                // console.log(item['direccion'])
-                // console.log(item['telefono_uno'][1])
-                // console.log(item['telefono_dos'][1])
-
-                perfil = `
-                  <h1> Datos personales </h1>
-                    <br>
-
-                    <form>    
-                      <div class="form-row">
-                        <div class="form-group col-lg-4 col-md-12 col-12">
-                          <label for="nroIdentificacion"> <b> Número de identificación </b> </label>
-                          <input name="nroIdentificacion" id="nroIdentificacion" type="text" class="form-control" disabled value="${item['nro_identificacion'][0]}">
-                        </div>
-                        <div class="form-group col-lg-4 col-md-6 col-12">
-                          <label for="primerNombre"> <b> Primer nombre </b> </label>
-                          <input type="text" class="form-control" value="${item['primer_nombre']}">
-                        </div>
-                        <div class="form-group col-lg-4 col-md-6 col-12">
-                          <label for="segundoNombre"> <b> Segundo nombre </b> </label>
-                          <input type="text" class="form-control" value="${(item['segundo_nombre'] == null) ? '' : item['segundo_nombre']}">
-                        </div>
-                      </div>
-      
-                      <div class="form-row">
-                        <div class="col-lg-4 invisible"></div>
-                        <div class="form-group col-lg-4 col-md-6 col-12">
-                          <label for="primerNombre"> <b> Primer apellido </b> </label>
-                          <input name="primerNombre" id="primerApellido" type="text" class="form-control" value="${item['primer_apellido']}">
-                        </div>
-                        <div class="form-group col-lg-4 col-md-6 col-12">
-                          <label for="segundoNombre"> <b> Segundo apellido </b> </label>
-                          <input name="segundoNombre" type="text" id="segundoApellido" class="form-control" value="${(item['segundo_apellido'] == null) ? '' : item['segundo_apellido']}">
-                        </div>
-                      </div>
-
-                      
-                      <br>
-                      <div class="dropdown-divider"></div>
-                      <h1> Contacto </h1>
-                      <br>
-      
-                      <div class="form-row">
-                        <div class="col-lg-4 invisible"></div>
-                        <div class="form-group col-lg-4 col-md-6 col-12">
-                          <label for="telefonoUno"><b>Teléfono uno </b> </label>
-                          <input name="telefonoUno" type="text" class="form-control" id="telefonoUno" value="${item['telefono_uno'][0]}">
-                        </div>
-                        <div class="form-group col-lg-4 col-md-6 col-12">
-                          <label for="telefonoDos"><b>Teléfono dos </b> </label>
-                          <input name="telefonoDos" type="text" class="form-control" id="telefonoDos" value="${ (item['telefono_dos'][0] == null) ? '' : item['telefono_dos'][0]}">
-                        </div>
-                      </div>
-      
-                      <div class="form-row">
-                        <div class="col-lg-4 invisible"></div>
-                        <div class="form-group col-lg-4 col-md-6 col-12">
-                          <label for="email"><b> Correo electrónico </b> </label>
-                          <input name="email" type="text" class="form-control" id="email" value="${item['email']}">
-                        </div>
-                        <div class="form-group col-lg-4 invisible"></div>
-                      </div>
-
-                      
-                      <br>
-                      <div class="dropdown-divider"></div>
-                      <h1> Roles </h1>
-                      <br>
-      
-                      <div class="form-row">
-                        <div class="col-lg-4 invisible"></div>
-                        <div class="form-group col-lg-2 col-12">
-                          <label for="nombreRol"><b>Rol asignado </b> </label>
-                          <input name="telefonoUno" type="text" class="form-control" disabled id="nombreRol" value="${item['nombre']}">
-                        </div>
-                        <div class="form-group col-lg-6 col-12">
-                          <label for="descripcionRol"><b>Descripción del rol </b> </label>
-                          <input name="telefonoDos" type="text" class="form-control" disabled id="descripcionRol" value="${item['descripcion']}">
-                        </div>
-                      </div>
-                      <input type="hidden" value="${item['id_tercero']}">
-                      <input type="hidden" value="${item['id_usuario']}">
-                      <input type="hidden" value="${item['id_rol']}">  
-                    </form>
-
-                    <br>
-                      <div class="dropdown-divider"></div>
-                      <h1> Empresas asignadas </h1>
-                    <br>
-                  
-                    <div id = "table" class="table-responsive table-responsive-md" >
-                      <table class="table table-hover table">
-                        <thead>
-                          <tr>
-                            <th scope="col">Cédula o NIT</th>
-                            <th scope="col">Razón social</th>
-                            <th scope="col">Direccion</th>
-                            <th scope="col">Teléfono</th>
-                            <th scope="col">Teléfono dos</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Email dos</th>
-                            <th scope="col">Activo</th>
-                          </tr>
-                        </thead>
-                        <tbody id="tablePerfil">
-                          
-                        </tbody>
-                      </table>
-                    </div>
-                  `;
-              });
-              AppendToSubcontainer(perfil);
-              let tablePerfil = $("#tablePerfil");
-              tablePerfil.html(tbody)
-            };
-          };
-        };
-      },
-    });
+    refreshPerfil();
   });
 
   $("#cuadresDiarios").click((e) => {
@@ -322,70 +564,16 @@ $(document).ready(function () {
     ResetContent();
     SetFunctionButton("refresh", "refreshGastos()");
     SetFunctionButton("add", "addGasto()");
-
-    $.ajax({
-      url: "../../controllers/EgresoController.php?fn=ver",
-      type: "GET",
-      data: {},
-      success: function (response) {
-        // console.log(response);
-        if (response != null & response != "") {
-          let data = JSON.parse(response);
-
-          thead = "";
-          tbody = "";
-          tfooter = "";
-
-          thead = `
-                  <div id= "table" class="table-responsive table-responsive-md" >
-                    <table class="table table-hover table-sm">
-                      <thead>
-                        <tr>
-                          <th scope="col">Fecha gasto</th>
-                          <th scope="col">Concepto gasto</th>
-                          <th scope="col">Valor gasto</th>
-                          <th scope="col">Observaciones</th>
-                          <th scope="col" class="text-center">Acciones</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        `;
-
-          tfooter = `
-                  </tbody>
-                    </table>
-                  </div >
-                  `;
-
-          for (const key in data.data) {
-            if (data.data.hasOwnProperty(key)) {
-              const element = data.data[key];
-              tbody += `
-                <tr>
-                  <td class="align-middle"> ${element['fecha_gasto']} </td>
-                  <td class="align-middle"> ${element['concepto_gasto']} </td>
-                  <td class="align-middle"> ${element['valor_gasto']} </td>
-                  <td class="align-middle"> ${element['observacion_gasto']} </td>
-                  <td class="align-middle text-center">
-                    <button onClick="actualizarEgreso(${element['id_gasto']})" class="btn btn-sm m-1 btn-outline-primary btn_actualizar">Actualizar</button>
-                    <button onClick="eliminarEgreso(${element['id_gasto']})" class="btn btn-sm m-1 btn-outline-danger btn_eliminar">Eliminar</button>
-                  </td>
-                </tr >
-                  `;
-            };
-          };
-          table = thead + tbody + tfooter;
-          AppendToSubcontainer(table);
-        };
-      },
-    });
+    refreshGastos();
   });
 
   $("#domicilios").click((e) => {
     e.preventDefault();
     ResetContent();
-    SetFunctionButton("refresh", "refreshCuadresDiarios()");
-    SetFunctionButton("add", "addCuadreDiario()");
+    SetFunctionButton("refresh", "refreshDomicilios()");
+    SetFunctionButton("add", "addDomicilio()");
+    refreshDomicilios();
+    // setInterval(refreshDomicilios, 3000);
   });
 
   $("#zonas").click((e) => {
@@ -393,7 +581,7 @@ $(document).ready(function () {
     ResetContent();
     SetFunctionButton("refresh", "refreshZonas()");
     SetFunctionButton("add", "addZona()");
-
+    refreshZonas();
   });
 
   $("#mensajeros").click((e) => {
@@ -401,6 +589,11 @@ $(document).ready(function () {
     ResetContent();
     SetFunctionButton("refresh", "refreshCuadresDiarios()");
     SetFunctionButton("add", "addCuadreDiario()");
+    refreshMensajeros();
+  })
+
+  $("#menu").click(() => {
+    AppendToSubcontainer(Welcome("Appcountancy", "verMas.php"));
   })
 
 });

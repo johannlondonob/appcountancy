@@ -1,9 +1,8 @@
   <div class="container-fluid my-4 pt-5">
       <div id="app-container" class="row">
           <div id="app-menu" class="col-lg-2 col-md-3 col-sm-12 py-3">
-              <nav
-                  class="navbar navbar-expand-md navbar-light flex-md-column flex-lg-column p-0 d-flex align-items-start position-lg-fixed border-right">
-                  <a class="navbar-brand" href="#"><h4>Menú</h4></a>
+              <nav class="navbar navbar-expand-md navbar-light flex-md-column flex-lg-column p-0 d-flex align-items-start position-lg-fixed border-right">
+                  <a id="menu" class="navbar-brand" href="#"><h4>Menú</h4></a>
                   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#menu-app"
                       aria-controls="menu-app" aria-expanded="false" aria-label="Toggle navigation">
                       <span class="navbar-toggler-icon"></span>

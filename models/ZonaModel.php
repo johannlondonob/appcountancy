@@ -7,43 +7,53 @@
         private $activoZona;
         public $db;
 
-        function __construct() {
+        public function __construct()
+        {
             $this -> db = Db::Conectar();
         }
 
-        function setIdZona($idZona) {
+        public function setIdZona($idZona)
+        {
             $this -> idZona = $idZona;
         }
 
-        function setNombreZona($nombreZona) {
+        public function setNombreZona($nombreZona)
+        {
             $this -> nombreZona = $nombreZona;
         }
 
-        function setValorZona($valorZona) {
+        public function setValorZona($valorZona)
+        {
             $this -> valorZona = $valorZona;
         }
 
-        function setActivoZona($activoZona) {
+        public function setActivoZona($activoZona)
+        {
             $this -> activoZona = $activoZona;
         }
 
-        function getIdZona() {
+        public function getIdZona()
+        {
             return $this -> idZona;
         }
 
-        function getNombreZona() {
+        public function getNombreZona()
+        {
             return $this -> nombreZona;
         }
 
-        function getValorZona() {
+        public function getValorZona()
+        {
             return $this -> valorZona;
         }
 
-        function getActivoZona() {
+        public function getActivoZona()
+        {
             return $this -> activoZona;
         }
 
-        function InsertOnce() {
+        public function InsertOnce()
+        {
             $sql = 'INSERT INTO zona VALUES(null, :nombreZona, :valorZona, :activoZona)';
             $transaccion = $this->db->prepare($sql);
             $transaccion->bindValue('nombreZona', $this->getNombreZona());
@@ -53,12 +63,19 @@
             return $result;
         }
 
-        function SelectAll() {
+        public function SelectAll()
+        {
             $sql = 'SELECT * FROM zona';
             $transaccion = $this -> db -> prepare($sql);
             $transaccion -> execute();
+            
+            if ($transaccion) {
+                return $transaccion->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
 
-            $zonaModel = [];
+            /* $zonaModel = [];
 
             foreach ($transaccion as $zona) {
                 $zone = new ZonaModel();
@@ -69,10 +86,11 @@
 
                 $zonaModel[] = $zone;
             }
-            return $zonaModel;
+            return $zonaModel; */
         }
 
-        function Find() {
+        public function Find()
+        {
             $sql = 'SELECT * FROM zona WHERE id_zona = :idZona';
             $transaccion = $this -> db -> prepare($sql);
             $transaccion -> bindValue('idZona', $this->idZona);
@@ -91,5 +109,4 @@
             }
             return $zonaModel;
         }
-
     }

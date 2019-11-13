@@ -8,42 +8,56 @@ require_once '../models/DomicilioModel.php';
         private $nombreMensajero;
         public $db;
 
-        function __construct() {
+        public function __construct()
+        {
             $this -> db = Db::Conectar();
         }
 
-        function setNombreZona($nombreZona) {
+        public function setNombreZona($nombreZona)
+        {
             $this -> nombreZona = $nombreZona;
         }
 
-        function setNombreMensajero($nombreMensajero) {
+        public function setNombreMensajero($nombreMensajero)
+        {
             $this -> nombreMensajero = $nombreMensajero;
         }
 
-        function setNombreMedioPago($nombreMedioPago) {
+        public function setNombreMedioPago($nombreMedioPago)
+        {
             $this -> nombreMedioPago = $nombreMedioPago;
         }
 
-        function getNombreZona() {
+        public function getNombreZona()
+        {
             return $this -> nombreZona;
         }
 
-        function getNombreMensajero() {
+        public function getNombreMensajero()
+        {
             return $this -> nombreMensajero;
         }
 
-        function getNombreMedioPAgo() {
+        public function getNombreMedioPAgo()
+        {
             return $this -> nombreMedioPago;
         }
 
-        function GenerateReport() {
+        public function GenerateReport()
+        {
             $sql = 'SELECT * FROM domicilio INNER JOIN mensajero ON domicilio.id_mensajero = mensajero.id_mensajero INNER JOIN forma_pago ON domicilio.id_forma_pago = forma_pago.id_forma_pago INNER JOIN zona ON domicilio.id_zona = zona.id_zona INNER JOIN tercero ON mensajero.id_tercero = tercero.id_tercero';
 
             $transaccion = $this -> db -> prepare($sql);
 
             $transaccion->execute();
 
-            $domicilios = [];
+            if ($transaccion) {
+                return $transaccion->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return false;
+            }
+
+            /* $domicilios = [];
             foreach ($transaccion as $key) {
                 $domicilio = new ReporteDomicilio();
 
@@ -62,6 +76,6 @@ require_once '../models/DomicilioModel.php';
 
                 $domicilios[] = $domicilio;
             }
-            return $domicilios;
+            return $domicilios; */
         }
     }

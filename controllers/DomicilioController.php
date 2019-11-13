@@ -4,23 +4,33 @@
   require_once '../models/ReporteDomicilio.php';
   require_once '../models/DomicilioModel.php';
   
-  $rDomicilio = new ReporteDomicilio();
-  $domicilio = new DomicilioModel();
+  $reporteDomicilio = new ReporteDomicilio();
+  // $domicilio = new DomicilioModel();
   
   if (isset($_GET['fn'])) {
-    $funcion = $_GET['fn'];
+      $funcion = $_GET['fn'];
   
-    switch ($funcion) {
-      case 'selectAll':
-        $titlePage = 'Ver egresos';
-        $nombreRol = $_SESSION['nombreRol'];
-        $domicilio = $rDomicilio->GenerateReport();
-        include_once '../views/common/head.php';
-        include_once '../views/common/navbar.php';
-        include_once '../views/domicilio/domicilios.php';
-        include_once '../views/common/datatables.php';
-        include_once '../views/common/bootstrapJS.php';
+      switch ($funcion) {
+      case 'ver':
+        $reporteDomicilio = $reporteDomicilio->GenerateReport();
 
+        if (! empty($reporteDomicilio)) {
+            $data = [
+            "error" => "0",
+            "message" => "Consulta exitosa.",
+            "data" => $reporteDomicilio
+          ];
+            echo json_encode($data);
+            return;
+        } else {
+            $data = [
+                "error" => "1",
+                "message" => "Consulta no resuelta.",
+                "data" => $reporteDomicilio
+              ];
+            echo  json_encode($data);
+            return;
+        }
         break;
   
       default:
