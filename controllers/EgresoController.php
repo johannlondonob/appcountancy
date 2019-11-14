@@ -31,16 +31,31 @@
       ];
         echo json_encode($datos);
         return;
-
-      /* $titlePage ='Ver egresos';
-      include_once('../views/common/head.php');
-      include_once('../views/common/navbar.php');
-      include_once('../views/egreso/ver_egresos.php');
-      include_once('../views/common/datatables.php');
-      include_once('../views/common/bootstrapJS.php'); */
       break;
       
-      case 'deleteOnce':
+      case 'eliminar':
+        if (isset($_POST) && $_POST['id'] != null && $_POST['id'] != '') {
+            $egresoModel->setIdGasto($_POST['id']);
+            $egresoModel->Delete();
+            if ($egresoModel) {
+                $datos = [
+                "error" => "0",
+                "message" => "Eliminación exitosa.",
+                "data" => []
+              ];
+                echo json_encode($datos);
+                return;
+            } else {
+                $datos = [
+                "error" => "1",
+                "message" => "La eliminación no se realizó.",
+                "data" => []
+              ];
+                echo json_encode($datos);
+                return;
+            }
+        }
+      break;
       
     }
   }

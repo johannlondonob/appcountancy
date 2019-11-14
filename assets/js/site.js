@@ -281,8 +281,8 @@ function refreshGastos() {
                 <td class="align-middle"> ${columna['valor_gasto']} </td>
                 <td class="align-middle"> ${columna['observacion_gasto']} </td>
                 <td class="align-middle text-center">
-                  <button onClick="actualizarEgreso(${columna['id_gasto']})" class="btn btn-sm m-1 btn-outline-primary btn_actualizar">Actualizar</button>
-                  <button onClick="eliminarEgreso(${columna['id_gasto']})" class="btn btn-sm m-1 btn-outline-danger btn_eliminar">Eliminar</button>
+                  <button onClick="ActualizarGasto(${columna['id_gasto']})" class="btn btn-sm m-1 btn-outline-primary btn_actualizar">Actualizar</button>
+                  <button onClick="EliminarGasto(${columna['id_gasto']})" class="btn btn-sm m-1 btn-outline-danger btn_eliminar">Eliminar</button>
                 </td>
               </tr >
                 `;
@@ -322,8 +322,8 @@ function refreshDomicilios() {
             <td class="align-middle"> ${columna['primer_nombre']}  ${columna['primer_apellido']} </td>
             <td class="align-middle"> ${columna['telefono_uno']} </td>
             <td class="align-middle text-center">
-              <button onClick="actualizarDomicilio(${columna['id_domicilio']})" class="btn btn-sm m-1 btn-outline-primary btn_actualizar">Actualizar</button>
-              <button onClick="eliminarDomicilio(${columna['id_domicilio']})" class="btn btn-sm m-1 btn-outline-danger btn_eliminar">Eliminar</button>
+              <button onClick="ActualizarDomicilio(${columna['id_domicilio']})" class="btn btn-sm m-1 btn-outline-primary btn_actualizar">Actualizar</button>
+              <button onClick="EliminarDomicilio(${columna['id_domicilio']})" class="btn btn-sm m-1 btn-outline-danger btn_eliminar">Eliminar</button>
             </td>
           </tr >
         `;
@@ -380,8 +380,8 @@ function refreshZonas() {
             <td class="align-middle"> ${columna['valor_zona']} </td>
             <td class="align-middle"> ${columna['activo']} </td>
             <td class="align-middle text-center">
-              <button onClick="actualizarZona(${columna['id_zona']})" class="btn btn-sm m-1 btn-outline-primary btn_actualizar">Actualizar</button>
-              <button onClick="eliminarZona(${columna['id_zona']})" class="btn btn-sm m-1 btn-outline-danger btn_eliminar">Eliminar</button>
+              <button onClick="ActualizarZona(${columna['id_zona']})" class="btn btn-sm m-1 btn-outline-primary btn_actualizar">Actualizar</button>
+              <button onClick="EliminarZona(${columna['id_zona']})" class="btn btn-sm m-1 btn-outline-danger btn_eliminar">Eliminar</button>
             </td>
           </tr >
         `;
@@ -458,8 +458,8 @@ function refreshMensajeros() {
             <td class="align-middle"> ${columna['email']} </td>
             <td class="align-middle"> ${columna['activo']} </td>
             <td class="align-middle text-center">
-              <button onClick="actualizarMensajero(${columna['id_mensajero']},${columna['id_tercero']})" class="btn btn-sm m-1 btn-outline-primary btn_actualizar">Actualizar</button>
-              <button onClick="eliminarMensajero(${columna['id_mensajero']},${columna['id_tercero']})" class="btn btn-sm m-1 btn-outline-danger btn_eliminar">Eliminar</button>
+              <button onClick="ActualizarMensajero(${columna['id_mensajero']},${columna['id_tercero']})" class="btn btn-sm m-1 btn-outline-primary btn_actualizar">Actualizar</button>
+              <button onClick="EliminarMensajero(${columna['id_mensajero']},${columna['id_tercero']})" class="btn btn-sm m-1 btn-outline-danger btn_eliminar">Eliminar</button>
             </td>
           </tr >
         `;
@@ -468,6 +468,110 @@ function refreshMensajeros() {
       AppendToSubcontainer(table);
     },
   });
+}
+
+function EliminarRegistro(tabla, id) {
+  var body = `¿Está seguro de eliminar el registro (${id})?`;
+  var bodyModal = $("#modalBody");
+  var modalEliminar = $("#eliminarModal");
+
+  switch (tabla) {
+    case "egreso":
+      bodyModal.html(body);
+      modalEliminar.modal("show");
+      $("#eliminacionSegura").click((e) => {
+        e.preventDefault();
+        $.ajax({
+          url: "../../controllers/EgresoController.php?fn=eliminar",
+          type: "POST",
+          data: {
+            id: id,
+          },
+          beforeSend: function () { },
+          success: function (response) {
+            refreshGastos();
+            modalEliminar.modal("hide");
+          }
+        });
+      });
+      break;
+    case "domicilio":
+      bodyModal.html(body);
+      modalEliminar.modal("show");
+      $("#eliminacionSegura").click((e) => {
+        e.preventDefault();
+        $.ajax({
+          url: "../../controllers/DomicilioController.php?fn=eliminar",
+          type: "POST",
+          data: {
+            id: id,
+          },
+          beforeSend: function () { },
+          success: function (response) {
+            refreshDomicilios();
+            modalEliminar.modal("hide");
+          }
+        });
+      });
+      break;
+    case "zona":
+      bodyModal.html(body);
+      modalEliminar.modal("show");
+      $("#eliminacionSegura").click((e) => {
+        e.preventDefault();
+        $.ajax({
+          url: "../../controllers/ZonaController.php?fn=eliminar",
+          type: "POST",
+          data: {
+            id: id,
+          },
+          beforeSend: function () { },
+          success: function (response) {
+            refreshZonas();
+            modalEliminar.modal("hide");
+          }
+        });
+      });
+      break;
+    case "mensajero":
+      bodyModal.html(body);
+      modalEliminar.modal("show");
+      $("#eliminacionSegura").click((e) => {
+        e.preventDefault();
+        $.ajax({
+          url: "../../controllers/MensajeroController.php?fn=eliminar",
+          type: "POST",
+          data: {
+            id: id,
+          },
+          beforeSend: function () { },
+          success: function (response) {
+            refreshMensajeros();
+            modalEliminar.modal("hide");
+          }
+        });
+      });
+      break;
+
+    default:
+      break;
+  }
+}
+
+function EliminarGasto(id) {
+  EliminarRegistro("egreso", id);
+}
+
+function EliminarDomicilio(id) {
+  EliminarRegistro("domicilio", id);
+}
+
+function EliminarZona(id) {
+  EliminarRegistro("zona", id);
+}
+
+function EliminarMensajero(id) {
+  EliminarRegistro("mensajero", id);
 }
 
 /**

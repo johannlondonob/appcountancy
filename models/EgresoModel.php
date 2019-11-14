@@ -88,20 +88,14 @@
             } else {
                 return false;
             }
-            
-            /* $egresoModel = [];
+        }
 
-            foreach ($transaccion as $key) {
-                $receptorValores = new EgresoModel();
-
-                $receptorValores->setIdGasto($key['id_gasto']);
-                $receptorValores->setFechaGasto($key['fecha_gasto']);
-                $receptorValores->setConceptoGasto($key['concepto_gasto']);
-                $receptorValores->setValorGasto($key['valor_gasto']);
-                $receptorValores->setObservacionGasto($key['observacion_gasto']);
-
-                $egresoModel[] = $receptorValores;
-            }
-            return $egresoModel; */
+        public function Delete()
+        {
+            $sql = 'DELETE FROM egreso WHERE id_gasto = :idGasto';
+            $transaccion = $this->db->prepare($sql);
+            $transaccion->bindValue('idGasto', $this->idGasto);
+            $transaccion->execute();
+            return $transaccion;
         }
     }

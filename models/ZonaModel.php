@@ -74,19 +74,6 @@
             } else {
                 return false;
             }
-
-            /* $zonaModel = [];
-
-            foreach ($transaccion as $zona) {
-                $zone = new ZonaModel();
-
-                $zone -> setIdZona($zona['id_zona']);
-                $zone -> setNombreZona($zona['nombre_zona']);
-                $zone -> setValorZona($zona['valor_zona']);
-
-                $zonaModel[] = $zone;
-            }
-            return $zonaModel; */
         }
 
         public function Find()
@@ -108,5 +95,15 @@
                 $zonaModel[] = $zone;
             }
             return $zonaModel;
+        }
+
+        public function Delete()
+        {
+            $sql = 'DELETE FROM zona WHERE id_zona = :idZona';
+            $transaccion = $this->db->prepare($sql);
+            $transaccion->bindValue('idZona', $this->idZona);
+            $transaccion->execute();
+
+            return $transaccion;
         }
     }

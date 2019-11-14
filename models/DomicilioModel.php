@@ -12,83 +12,103 @@
         private $observaciones;
         private $db;
 
-        function __construct() {
-          $this->db = Db::Conectar();
+        public function __construct()
+        {
+            $this->db = Db::Conectar();
         }
 
-        function setIdDomicilio($idDomicilio) {
+        public function setIdDomicilio($idDomicilio)
+        {
             $this -> idDomicilio = $idDomicilio;
         }
 
-        function setFechaDomicilio($fechaDomicilio) {
+        public function setFechaDomicilio($fechaDomicilio)
+        {
             $this -> fechaDomicilio = $fechaDomicilio;
         }
 
-        function setNroFactura($nroFactura) {
+        public function setNroFactura($nroFactura)
+        {
             $this -> nroFactura = $nroFactura;
         }
 
-        function setValorFactura($valorFactura) {
+        public function setValorFactura($valorFactura)
+        {
             $this -> valorFactura = $valorFactura;
         }
 
-        function setIdZona($idZona) {
+        public function setIdZona($idZona)
+        {
             $this -> idZona = $idZona;
         }
 
-        function setIdMensajero($idMensajero) {
+        public function setIdMensajero($idMensajero)
+        {
             $this -> idMensajero = $idMensajero;
         }
 
-        function setIdFormaPago($idFormaPago) {
+        public function setIdFormaPago($idFormaPago)
+        {
             $this -> idFormaPago = $idFormaPago;
         }
 
-        function setFechaEntregaDinero($fechaEntregaDinero) {
+        public function setFechaEntregaDinero($fechaEntregaDinero)
+        {
             $this -> fechaEntregaDinero = $fechaEntregaDinero;
         }
         
-        function setObservaciones($observaciones) {
+        public function setObservaciones($observaciones)
+        {
             $this -> observaciones = $observaciones;
         }
 
-        function getIdDomicilio() {
+        public function getIdDomicilio()
+        {
             return $this -> idDomicilio;
         }
 
-        function getFechaDomicilio() {
+        public function getFechaDomicilio()
+        {
             return $this -> fechaDomicilio;
         }
 
-        function getNroFactura() {
+        public function getNroFactura()
+        {
             return $this -> nroFactura;
         }
 
-        function getValorFactura() {
+        public function getValorFactura()
+        {
             return $this -> valorFactura;
         }
 
-        function getIdZona() {
+        public function getIdZona()
+        {
             return $this -> idZona;
         }
 
-        function getIdMensajero() {
+        public function getIdMensajero()
+        {
             return $this -> idMensajero;
         }
 
-        function getIdFormaPago() {
+        public function getIdFormaPago()
+        {
             return $this -> idFormaPago;
         }
 
-        function getFechaEntregaDomicilio() {
+        public function getFechaEntregaDomicilio()
+        {
             return $this -> fechaEntregaDinero;
         }
 
-        function getObservaciones() {
+        public function getObservaciones()
+        {
             return $this -> observaciones;
         }
 
-        function InsertOnce() {
+        public function InsertOnce()
+        {
             $sql = 'INSERT INTO domicilio VALUES(null, :fechaDomicilio, :nroFactura, :valorFactura, :idZona, :idMensajero, :idFormaPago, :fechaEntregaDinero, :observaciones)';
 
             $transaccion = $this -> db -> prepare($sql);
@@ -104,10 +124,10 @@
             $transaccion->execute();
 
             return $transaccion;
-
         }
 
-        function FindFactura() {
+        public function FindFactura()
+        {
             $sql = 'SELECT * FROM domicilio WHERE nro_factura = :nroFactura';
 
             $transaccion = $this -> db -> prepare($sql);
@@ -124,27 +144,13 @@
             return $arrayFactura;
         }
 
-     //        // function SelectAll() {
-                //     $sql = 'SELECT * FROM domicilio';
-                //     $transaccion = $this -> db -> prepare($sql);
-                //     $transaccion -> execute();
-        // 
-                //     $domicilioModel = [];
-        // 
-                //     foreach ($transaccion as $domicilio) {
-                //         $domi = new DomicilioModel();
-        // 
-                //         $domi -> setIdDomicilio($domicilio['id_domicilio']);
-                //         $domi -> setFechaDomicilio($domicilio['fecha_domicilio']);
-                //         $domi -> setNroFactura($domicilio['nro_factura']);
-                //         $domi -> setValorDomicilio($domicilio['valor_factura']);
-                //         $domi -> setIdZona($domicilio['id_zona']);
-                //         $domi -> setIdMensajero($domicilio['id_mensajero']);
-                //         $domi -> setIdFormaPago($domicilio['id_forma_pago']);
-                //         $domi -> setFechaEntregaDinero($domicilio['fecha_entrega_dinero']);
-        // 
-                //         $domicilioModel[] = $domi;
-                //     }
-                //     return $domicilioModel;
-                // }
+        public function Delete()
+        {
+            $sql = 'DELETE FROM domicilio WHERE id_egreso = :idDomicilio';
+            $transaccion = $this->db->prepare($sql);
+            $transaccion->bindValue('idDomicilio', $this->idDomicilio);
+            $transaccion->execute();
+
+            return $transaccion;
+        }
     }

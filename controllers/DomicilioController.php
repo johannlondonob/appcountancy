@@ -32,6 +32,9 @@
             return;
         }
         break;
+        case 'eliminar':
+          
+          break;
   
       default:
         break;
